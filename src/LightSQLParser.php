@@ -307,10 +307,21 @@ class LightSQLParser {
 	function getFingerprint() {
 		$query  = $this->getQuery();
 
-		/* remove backticks. */
 		$result = $query;
 		/* backticks */
 		$result = preg_replace('/\`([^\`]+)\`/', '$1', $result);
+
+		/* take off LIMIT and OFFSET */
+		$limitp = strripos($result, ' LIMIT ');
+		$offsetp = strripos($result, ' OFFSET ');
+		$limitClause = '';
+		if ($limitp > 0 || $offsetp > 0) {
+			$limitp = $limitp === false ? PHP_INT_MAX : $limitp;
+			$offsetp = $offsetp === false ? PHP_INT_MAX : $offsetp;
+			$p = min($limitp, $offsetp);
+			$limitClause = substr($result, $p );
+			$result = substr($result, 0, $p);
+		}
 
 		/* date and time constants */
 		$result = preg_replace ( '/\'\d\d\d\d-\d\d-\d\d \d\d:\d\d:\dd/', '?datetime?', $result);
@@ -332,9 +343,9 @@ class LightSQLParser {
 		/* quoted strings, with escapes processed correctly */
 		$result = preg_replace( "/(INSERT +[^\\(]+\\([^\\)]+\\) *VALUES )(?:.{150,}+)/", '$1 (?valuelist?)', $result );
 
+		$result = strlen($limitClause) > 0 ? $result . ' ' . $limitClause : $result;
 		/* extra white space */
 		$result = preg_replace('/\s+/', ' ', $result);
-
 		return $result;
 	}
 }

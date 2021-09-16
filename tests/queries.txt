@@ -1,3 +1,6 @@
+SELECT * FROM wp_posts WHERE ID = 23021 LIMIT 1, 10
+SELECT * FROM wp_posts WHERE ID = 23021 OFFSET 10 LIMIT 1, 10
+SELECT * FROM wp_posts WHERE ID = 23021 LIMIT 10 OFFSET  1
 SELECT option_value FROM wp_options WHERE option_name = '_transient_timeout_imfsQueryMonitorLog' LIMIT 1
 SELECT option_value FROM wp_options WHERE option_name = '_transient_imfsQueryMonitorLog' LIMIT 1
 SELECT comment_approved, COUNT( * ) AS total FROM wp_comments GROUP BY comment_approved
