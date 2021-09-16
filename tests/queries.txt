@@ -1,5 +1,7 @@
 SELECT * FROM wp_posts WHERE ID = 23021 LIMIT 1, 10
 SELECT * FROM wp_posts WHERE ID = 23021 OFFSET 10 LIMIT 1, 10
+SELECT * FROM wp_3_posts WHERE ID = 23021 LIMIT 1, 10
+SELECT * FROM wp_1_posts WHERE ID = 23021 OFFSET 10 LIMIT 1, 10
 SELECT * FROM wp_posts WHERE ID = 23021 LIMIT 10 OFFSET  1
 SELECT option_value FROM wp_options WHERE option_name = '_transient_timeout_imfsQueryMonitorLog' LIMIT 1
 SELECT option_value FROM wp_options WHERE option_name = '_transient_imfsQueryMonitorLog' LIMIT 1

@@ -4,7 +4,7 @@ namespace olliejones\sqlparser;
 
 /**
  * Light SQL Parser Class
- * @author Marco Cesarato <cesarato.developer@gmail.com>
+ * @author Marco Cesarato <cesarato.developer@gmail.com>, Ollie JOnes <olliejones@gmail.com>
  * @copyright Copyright (c) 2021
  * @license http://opensource.org/licenses/gpl-3.0.html GNU Public License
  * @link https://github.com/marcocesarato/PHP-Light-SQL-Parser-Class
@@ -335,7 +335,7 @@ class LightSQLParser {
 		$result = preg_replace( '/IN +\( *\d+ *, *\d+ *\)/', 'IN (?i?, ?i?)', $result );
 		$result = preg_replace( '/IN +\( *(\d+, *){2,9}(\d+ *\))/', 'IN (?ilist?)', $result );
 		$result = preg_replace( '/IN +\( *(\d+, *){10,}(\d+ *\))/', 'IN (?ilonglist?)', $result );
-		$result = preg_replace( '/\d+/', '?i?', $result );
+		$result = preg_replace( '/(?:[^_])\d+/', '?i?', $result );
 
 		/* quoted strings, with escapes processed correctly */
 		$result = preg_replace( '/\'(?:.*?[^\\\\])??(?:(?:\\\\\\\\)+)?\'/', '?s?', $result );
